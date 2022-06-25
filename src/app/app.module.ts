@@ -8,6 +8,8 @@ import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {HttpClientModule} from "@angular/common/http";
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule,
+    AppRoutingModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService

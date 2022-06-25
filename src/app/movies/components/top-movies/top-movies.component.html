@@ -1,0 +1,5 @@
+<ng-container *ngIf="movies">
+  <ng-container *ngFor="let movie of movies">
+    <div>{{ movie.title | titlecase}}: {{ movie.vote_average }}/10</div>
+  </ng-container>
+</ng-container>
