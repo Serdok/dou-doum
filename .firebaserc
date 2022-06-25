@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dou-doum": {
+      "hosting": {
+        "dou-doum": [
+          "dou-doum"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dou-doum"
+  }
+}
