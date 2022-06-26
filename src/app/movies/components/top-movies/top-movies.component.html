@@ -1,5 +1,74 @@
-<ng-container *ngIf="movies">
-  <ng-container *ngFor="let movie of movies">
-    <div>{{ movie.title | titlecase}}: {{ movie.vote_average }}/10</div>
-  </ng-container>
+<ng-container *ngIf="result$ | async as result else loading">
+  <div class="flex flex-wrap gap-3">
+    <div *ngFor="let movie of movies$ | async" class="flex flex-initial align-content-center justify-content-center">
+      <p-card [header]="movie.title" [subheader]="movie.tagline ?? ''" class="movie-card">
+        <ng-template pTemplate="header">
+          <p-image *ngIf="movie.poster_path"
+                   [src]="imdbImage.getImageUrl('w342', movie.poster_path)" [alt]="movie.title"
+                   width="342"
+          >
+          </p-image>
+        </ng-template>
+
+        <p>{{ movie.overview }}</p>
+
+        <ng-template pTemplate="footer">
+          <div class="flex justify-content-between">
+            <div class="movie-rating"><fa-icon [icon]="faRankingStar"></fa-icon> {{ movie.vote_average }} / 10</div>
+            <div class="movie-release">Released on: {{ movie.release_date | date }}</div>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+  <p-paginator [first]="first" [rows]="result.results.length" [totalRecords]="result.total_results - 1"
+               [showPageLinks]="true"
+               (onPageChange)="paginate($event)"
+  >
+
+  </p-paginator>
 </ng-container>
+
+
+<ng-template #loading>
+  <div class="custom-skeleton p-4">
+    <ul class="m-0 o-0">
+      <li class="mb-3">
+        <div class="flex">
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+          <div style="flex: 1">
+            <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="75%"></p-skeleton>
+          </div>
+        </div>
+      </li>
+      <li class="mb-3">
+        <div class="flex">
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+          <div style="flex: 1">
+            <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="75%"></p-skeleton>
+          </div>
+        </div>
+      </li>
+      <li class="mb-3">
+        <div class="flex">
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+          <div style="flex: 1">
+            <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="75%"></p-skeleton>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="flex">
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+          <div style="flex: 1">
+            <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="75%"></p-skeleton>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>

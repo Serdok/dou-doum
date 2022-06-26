@@ -1,21 +1,20 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {catchError, Observable, retry, throwError} from "rxjs";
 
 import {environment} from '../../../environments/environment';
-import {catchError, Observable, retry, throwError} from "rxjs";
-import {Movie} from "../../models/imdb/movie";
-import {Result} from "../../models/imdb/result";
+import {Configuration} from "../../models/imdb/configuration";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ImdbMovieService {
+export class ImdbService {
   private apiKeys = {
     v3: environment.imdb.apiKeys.v3,
     v4: environment.imdb.apiKeys.v4
   }
 
-  private url = 'https://api.themoviedb.org/3/movie';
+  private url = 'https://api.themoviedb.org/3';
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
@@ -38,17 +37,10 @@ export class ImdbMovieService {
     return throwError(() => new Error('Something bad happened, please try again later.'));
   }
 
-  getMovie(id: number): Observable<Movie> {
-    return this.http.get<Movie>(`${this.url}/${id}`, {headers: this.headers,}).pipe(
-      retry(3), // Retry the request 3 times
-      catchError(this.handleError),
-    );
-  }
-
-  getTopRatedMovies(page: number = 1): Observable<Result<Movie>> {
-    return this.http.get<Result<Movie>>(`${this.url}/top_rated`, {headers: this.headers, params: {page,}}).pipe(
+  getConfiguration(): Observable<Configuration> {
+    return this.http.get<Configuration>(`${this.url}/configuration`, {headers: this.headers}).pipe(
       retry(3),
-      catchError(this.handleError),
+      catchError(this.handleError)
     );
   }
 }
