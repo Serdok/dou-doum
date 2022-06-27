@@ -7,8 +7,6 @@ require('dotenv').config();
 const environment = argv.environment;
 const isProduction = environment === 'prod';
 
-const targetPath = `./src/environments/environment.ts`
-
 const environmentFileContents = `
 export const environment = {
   firebase: {
@@ -37,6 +35,12 @@ const writeFile = async (file: typeof fs.PathLike, contents: any, options?: type
   fs.writeFileSync(file, contents, options);
 }
 
+let targetPath = `./src/environments/environment.ts`
+writeFile(targetPath, environmentFileContents, {flag: 'w'}).then(() => {
+  console.log(`Written environment variables to ${targetPath}`);
+}).catch(console.error);
+
+targetPath = `./src/environments/environment.prod.ts`
 writeFile(targetPath, environmentFileContents, {flag: 'w'}).then(() => {
   console.log(`Written environment variables to ${targetPath}`);
 }).catch(console.error);
