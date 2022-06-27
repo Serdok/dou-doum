@@ -1,4 +1,5 @@
-const {writeFile} = require('fs');
+const fs = require('fs');
+const path = require('path');
 const {argv} = require('yargs');
 
 require('dotenv').config();
@@ -31,11 +32,13 @@ export const environment = {
 };
 `
 
-writeFile(targetPath, environmentFileContents, function (err: (NodeJS.ErrnoException | null)) {
-  if (err) {
-    console.error(err);
-    return;
+const writeFile = async (file: typeof fs.PathLike, contents: any, options?: typeof fs.WriteFileOptions) => {
+  if (!fs.existsSync(path.dirname(file))) {
+    await fs.promises.mkdir(path.dirname(file), {recursive: true});
   }
+  fs.writeFileSync(file, contents, options);
+}
 
+writeFile(targetPath, environmentFileContents, {flag: 'w'}).then(() => {
   console.log(`Written environment variables to ${targetPath}`);
-})
+}).catch(console.error);
