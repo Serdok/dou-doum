@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: yarn install --frozen-lockfile && yarn run build
+        working-directory: '${{ github.workspace }}'
         env:
           IMDB_API_KEY_V3: '${{ secrets.IMDB_API_KEY_V3 }}'
           IMDB_API_KEY_V4: '${{ secrets.IMDB_API_KEY_V4 }}'
