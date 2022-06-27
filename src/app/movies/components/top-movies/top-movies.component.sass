@@ -1,6 +1,20 @@
+@import 'primeflex/primeflex'
+
 .movie-card
-  width: 350px
+  @include styleclass("card p-card my-2 min-w-16rem w-16rem max-w-16rem min-h-30rem h-30rem max-h-30rem")
+
+  &-image
+    @include styleclass("card-image")
+
+  &-content
+    @include styleclass("card-content p-card-content")
+
+    &-title
+      @include styleclass("text-primary text-xl font-bold")
+
+    &-tagline
+      @include styleclass("text-color-secondary opacity-6 overflow-hidden white-space-nowrap text-overflow-ellipsis text-sm font-italic")
 
 .custom-skeleton
   ul
-    list-style: none
+    @include styleclass("list-none")
