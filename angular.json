@@ -58,10 +58,11 @@
             ],
             "styles": [
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/vela-orange/theme.css",
+              "node_modules/bulma/bulma.sass",
+              "node_modules/primeflex/primeflex.scss",
               "node_modules/primeng/resources/primeng.min.css",
-              "src/styles.sass",
-              "node_modules/primeflex/primeflex.css"
+              "node_modules/primeng/resources/themes/vela-orange/theme.css",
+              "src/styles.sass"
             ],
             "scripts": []
           },
@@ -70,13 +71,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "5kb",
+                  "maximumError": "1mb"
                 }
               ],
               "fileReplacements": [
