@@ -6,7 +6,7 @@
       </figure>
     </div>
     <div class="card-content">
-      <a (click)="this.navigateTo(movie.id)"><strong>{{ movie.title }}</strong></a>
+      <a [routerLink]="['../movie', movie.id]"><strong>{{ movie.title }}</strong></a>
       <p class="movie-tagline">{{ movie.tagline }}</p>
     </div>
   </div>
