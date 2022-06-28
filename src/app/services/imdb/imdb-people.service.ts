@@ -3,18 +3,18 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
 
 import {environment} from '../../../environments/environment';
-import {Image} from "../../models/imdb/image";
+import {Person} from "../../models/imdb/person";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ImdbImageService {
+export class ImdbPeopleService {
   private apiKeys = {
     v3: environment.imdb.apiKeys.v3,
     v4: environment.imdb.apiKeys.v4
   }
 
-  private url = '';
+  private url = 'https://api.themoviedb.org/3/person';
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
@@ -22,15 +22,6 @@ export class ImdbImageService {
       Authorization: `Bearer ${this.apiKeys.v4}`,
       'Content-Type': 'application/json',
     });
-  }
-
-  set base_url(base_url: string) {
-    this.url = base_url;
-  }
-
-  getImageUrl(size: string, file: string): string {
-    if (file.startsWith('/')) { file = file.slice(1); }
-    return `${this.url}/${size}/${file}`;
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -46,10 +37,10 @@ export class ImdbImageService {
     return throwError(() => new Error('Something bad happened, please try again later.'));
   }
 
-  getImage(size: string, file: string): Observable<Image> {
-    return this.http.get<Image>(`${this.url}/${size}/${file}`, {headers: this.headers}).pipe(
+  getPerson(id: number): Observable<Person> {
+    return this.http.get<Person>(`${this.url}/${id}`, {headers: this.headers}).pipe(
       retry(3),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 }

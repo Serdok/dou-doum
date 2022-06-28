@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {TopMoviesComponent} from "./components/top-movies/top-movies.component";
+import {MovieComponent} from "./components/movie/movie.component";
 
 const routes: Routes = [
+  { path: 'movie/:id', component: MovieComponent, },
   { path: 'top-movies', component: TopMoviesComponent, },
 ];
 

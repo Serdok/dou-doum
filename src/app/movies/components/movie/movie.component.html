@@ -1,0 +1,106 @@
+<ng-container *ngIf="movie$ | async as movie else loadingOrError">
+  <section class="movie-header hero">
+<!--    movie title, poster card and description (background backdrop)-->
+    <div class="container is-fluid columns is-mobile is-centered is-vcentered">
+        <div class="poster-image column is-one-quarter">
+          <figure class="image is-2by3" *ngIf="movie.poster_path">
+            <img [src]="imdbImage.getImageUrl('original', movie.poster_path)" [alt]="movie.title"/>
+          </figure>
+        </div>
+        <div class="column is-half">
+          <p class="text-primary text-2xl"><span class="font-bold">{{ movie.title }} </span><span class="opacity-60">({{movie.release_date | date:'yyyy' }})</span></p>
+          <div class="is-flex is-flex-direction-row is-align-items-center my-3">
+            <fa-icon *ngIf="movie.adult" [icon]="faCircleExclamation" class="mr-2"></fa-icon>
+            <p class="mr-2">{{ movie.release_date | date:'MM/dd/yyyy' }}</p>
+            <div class="mr-2">
+              <p-tag *ngFor="let genre of movie.genres" [value]="genre.name" styleClass="mr-1"></p-tag>
+            </div>
+            <p class="mr-2">{{ runtimeHours | number:'1.0-0' }}h {{ runtimeMinutes | number:'2.0-0' }}min</p>
+          </div>
+          <div class="is-flex is-flex-direction-row is-align-items-center my-3">
+            <div class="is-flex is-flex-direction-column is-align-items-center">
+              <p-chart type="doughnut" [data]="userScore" width="75px" [responsive]="false"></p-chart>
+              <p><strong>{{movie.popularity | number:'1.0-0'}}%</strong> User popularity</p>
+            </div>
+            <p-button label="Play trailer" icon="pi pi-play" iconPos="left" [disabled]="true"
+                      pTooltip="Work in Progress"
+                      styleClass="p-button-outlined p-button-rounded mx-3"
+            ></p-button>
+          </div>
+          <div>
+            <p>{{ movie.tagline }}</p>
+            <div>
+              <p>Overview:</p>
+              <p>{{ movie.overview }}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+  <section class="movie-details columns is-mobile is-centered">
+    <ng-container *ngIf="credits$ | async as credits">
+      <section class="movie-cast column is-three-quarters">
+        <p-carousel [value]="credits.cast" [numVisible]="6" [numScroll]="5">
+          <ng-template pTemplate="header">Cast</ng-template>
+          <ng-template let-cast pTemplate="item">
+            <div class="movie-cast-card box">
+              <figure class="image cast-image mb-1" *ngIf="cast.profile_path">
+                <img [src]="imdbImage.getImageUrl('original', cast.profile_path)" [alt]="cast.name"/>
+              </figure>
+              <p class="font-bold">{{ cast.name }}</p>
+              <p class="font-light text-sm font-italic">{{ cast.character }}</p>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </section>
+    </ng-container>
+    <section class="movie-budget column">
+      <div class="my-2">
+        <strong>Status</strong>
+        <p>{{ movie.status }}</p>
+      </div>
+      <div class="my-2">
+        <strong>Original language</strong>
+        <p>{{ this.intl.of(movie.original_language) }}</p>
+      </div>
+      <div class="my-2">
+        <strong>Budget</strong>
+        <p>{{ movie.budget | currency }}</p>
+      </div>
+      <div class="my-2">
+        <strong>Revenue</strong>
+        <p>{{ movie.revenue | currency }}</p>
+      </div>
+      <div *ngIf="keywords$ | async as keywords" class="my-2">
+        <strong>Keywords</strong>
+        <p>
+          <p-tag *ngFor="let keyword of keywords.keywords" [value]="keyword.name" styleClass="mr-1"></p-tag>
+        </p>
+      </div>
+    </section>
+  </section>
+</ng-container>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error else loading">
+    <p>Error fetching movie data! <a appBack>Go back.</a></p>
+  </ng-container>
+</ng-template>
+
+<ng-template #loading>
+  <div class="custom-skeleton p-4">
+    <div class="flex mb-3">
+      <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+      <div>
+        <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height=".5rem"></p-skeleton>
+      </div>
+    </div>
+    <p-skeleton width="100%" height="150px"></p-skeleton>
+    <div class="flex justify-content-between mt-3">
+      <p-skeleton width="4rem" height="2rem"></p-skeleton>
+      <p-skeleton width="4rem" height="2rem"></p-skeleton>
+    </div>
+  </div>
+</ng-template>
