@@ -12,24 +12,27 @@ import {HttpClientModule} from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
+import { SharedModule } from './shared.module';
+
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAnalytics(() => getAnalytics()),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    FontAwesomeModule,
-    HttpClientModule,
-    AppRoutingModule,
-  ],
-  providers: [
-    ScreenTrackingService,UserTrackingService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+      AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAnalytics(() => getAnalytics()),
+        provideAuth(() => getAuth()),
+        provideFirestore(() => getFirestore()),
+        FontAwesomeModule,
+        HttpClientModule,
+        AppRoutingModule,
+        SharedModule,
+    ],
+    providers: [
+        ScreenTrackingService, UserTrackingService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

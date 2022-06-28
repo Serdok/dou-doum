@@ -33,11 +33,12 @@ const writeFile = async (file: typeof fs.PathLike, contents: any, options?: type
     await fs.promises.mkdir(path.dirname(file), {recursive: true});
   }
   fs.writeFileSync(file, contents, options);
+  return {file, contents};
 }
 
 let targetPath = `./src/environments/environment.ts`
-writeFile(targetPath, environmentFileContents, {flag: 'w'}).then(() => {
-  console.log(`Written environment variables to ${targetPath}`);
+writeFile(targetPath, environmentFileContents, {flag: 'w'}).then((result) => {
+  console.log(`Written environment variables to ${result.file}`);
 }).catch(console.error);
 
 targetPath = `./src/environments/environment.prod.ts`

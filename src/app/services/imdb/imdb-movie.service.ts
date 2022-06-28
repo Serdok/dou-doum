@@ -5,6 +5,8 @@ import {environment} from '../../../environments/environment';
 import {catchError, Observable, retry, throwError} from "rxjs";
 import {Movie} from "../../models/imdb/movie";
 import {Result} from "../../models/imdb/result";
+import {Credits} from "../../models/imdb/credits";
+import {Keywords} from "../../models/imdb/keywords";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +49,20 @@ export class ImdbMovieService {
 
   getTopRatedMovies(page: number = 1): Observable<Result<Movie>> {
     return this.http.get<Result<Movie>>(`${this.url}/top_rated`, {headers: this.headers, params: {page,}}).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getCredits(id: number): Observable<Credits> {
+    return this.http.get<Credits>(`${this.url}/${id}/credits`, {headers: this.headers,}).pipe(
+      retry(3),
+      catchError(this.handleError),
+    );
+  }
+
+  getKeywords(id: number): Observable<Keywords> {
+    return this.http.get<Keywords>(`${this.url}/${id}/keywords`, {headers: this.headers}).pipe(
       retry(3),
       catchError(this.handleError),
     );
