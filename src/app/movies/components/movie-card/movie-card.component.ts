@@ -13,8 +13,6 @@ export class MovieCardComponent implements OnInit {
   error!: any;
 
   constructor(public imdbImage: ImdbImageService, private router: Router, private route: ActivatedRoute) {
-    console.log('router', this.router);
-    console.log('route', this.route);
   }
 
   ngOnInit(): void {
