@@ -1,23 +1,13 @@
-<ng-container *ngIf="result$ | async as result else loading">
-  <div class="flex flex-none flex-wrap flex-column md:flex-row align-content-center justify-content-center gap-3">
-    <div *ngFor="let movie of movies$ | async" class="movie-card">
-      <div *ngIf="movie.poster_path" class="movie-card-image">
-        <figure class="image is-2by3">
-          <img [src]="imdbImage.getImageUrl('original', movie.poster_path)" [alt]="movie.title"/>
-        </figure>
-      </div>
-      <div class="movie-card-content">
-        <p class="movie-card-content-title">{{ movie.title }}</p>
-        <p class="movie-card-content-tagline">{{ movie.tagline }}</p>
-      </div>
-    </div>
+<div *ngIf="result$ | async as result else loading">
+  <div class="columns is-multiline is-3">
+    <app-movie-card *ngFor="let movie of movies$ | async as movies" [movie]="movie" pStyleClass="column"></app-movie-card>
   </div>
   <p-paginator [first]="first" [rows]="result.results.length" [totalRecords]="result.total_results - 1"
                [showPageLinks]="true"
                (onPageChange)="paginate($event)"
   >
   </p-paginator>
-</ng-container>
+</div>
 
 
 <ng-template #loading>

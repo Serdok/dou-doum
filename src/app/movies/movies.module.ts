@@ -17,13 +17,15 @@ import {StyleClassModule} from "primeng/styleclass";
 import {CarouselModule} from "primeng/carousel";
 import {TooltipModule} from "primeng/tooltip";
 import {ChartModule} from "primeng/chart";
+import { MovieCardComponent } from './components/movie-card/movie-card.component';
 
 
 @NgModule({
   declarations: [
     TopMoviesComponent,
     MovieComponent,
-    CastCardComponent
+    CastCardComponent,
+    MovieCardComponent
   ],
   imports: [
     CommonModule,
