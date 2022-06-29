@@ -18,6 +18,9 @@ import {CarouselModule} from "primeng/carousel";
 import {TooltipModule} from "primeng/tooltip";
 import {ChartModule} from "primeng/chart";
 import { MovieCardComponent } from './components/movie-card/movie-card.component';
+import { MovieSearchComponent } from './components/movie-search/movie-search.component';
+import {InputTextModule} from "primeng/inputtext";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -25,7 +28,8 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
     TopMoviesComponent,
     MovieComponent,
     CastCardComponent,
-    MovieCardComponent
+    MovieCardComponent,
+    MovieSearchComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +46,8 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
     CarouselModule,
     TooltipModule,
     ChartModule,
+    InputTextModule,
+    ReactiveFormsModule,
   ]
 })
 export class MoviesModule { }

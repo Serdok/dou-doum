@@ -1,0 +1,35 @@
+<ng-container>
+  <div class="movie-search-bar box">
+    <div class="field has-addons">
+      <div class="control has-icons-left is-expanded">
+        <input type="text" class="input" placeholder="Search here..." [formControl]="search"/>
+        <span class="icon is-small is-left"><fa-icon [icon]="faFilm"></fa-icon></span>
+      </div>
+      <div class="control">
+        <button class="button" (click)="this.onSearch()" [disabled]="!search.valid">
+          <span class="icon"><fa-icon [icon]="faMagnifyingGlass"></fa-icon></span>
+          <span>Search</span>
+        </button>
+      </div>
+    </div>
+    <div class="field is-grouped">
+      <div class="control">
+        <label class="checkbox">
+          <input type="checkbox" [formControl]="adult"/>
+          Include adult results
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <section *ngIf="results$ | async as result">
+    <div class="columns is-multiline is-3">
+      <app-movie-card *ngFor="let movie of movies$ | async as movies" [movie]="movie" pStyleClass="column"></app-movie-card>
+    </div>
+    <p-paginator [first]="first" [rows]="result.results.length" [totalRecords]="result.total_results"
+                 [showPageLinks]="true"
+                 (onPageChange)="paginate($event)"
+    >
+    </p-paginator>
+  </section>
+</ng-container>
