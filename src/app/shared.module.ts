@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {BackDirective} from "./directives/back.directive";
+import {BackDirective} from "./common/back.directive";
 
 
 @NgModule({

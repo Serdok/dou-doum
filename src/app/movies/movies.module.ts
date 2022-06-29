@@ -21,6 +21,9 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
 import { MovieSearchComponent } from './components/movie-search/movie-search.component';
 import {InputTextModule} from "primeng/inputtext";
 import {ReactiveFormsModule} from "@angular/forms";
+import { MovieHomepageComponent } from './components/movie-homepage/movie-homepage.component';
+import {MenubarModule} from "primeng/menubar";
+import {MenuModule} from "primeng/menu";
 
 
 @NgModule({
@@ -29,7 +32,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MovieComponent,
     CastCardComponent,
     MovieCardComponent,
-    MovieSearchComponent
+    MovieSearchComponent,
+    MovieHomepageComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +52,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     ChartModule,
     InputTextModule,
     ReactiveFormsModule,
+    MenubarModule,
+    MenuModule,
   ]
 })
 export class MoviesModule { }

@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 
 import {environment} from '../environments/environment';
+import {HomeComponent} from "./components/home/home.component";
 
 const routes: Routes = [
-  { path: 'movies', loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule), }
+  { path: '', component: HomeComponent, children: [
+      { path: 'movies', loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule), },
+    ],
+  },
+  { path: '**', redirectTo: 'home', },
 ]
 
 @NgModule({
