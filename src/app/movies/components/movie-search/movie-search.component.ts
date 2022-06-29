@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {faFilm, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
-import {mergeMap, Observable, tap, zipAll} from "rxjs";
+import {mergeMap, Observable, zipAll} from "rxjs";
 import {ImdbSearchService} from "../../../services/imdb/imdb-search.service";
 import {FormControl, Validators} from "@angular/forms";
 import {Result} from "../../../models/imdb/result";
@@ -69,7 +69,7 @@ export class MovieSearchComponent implements OnInit {
   }
 
   refreshData(page: number = 1, include_adult: boolean = true) {
-    this.results$ = this.imdbSearch.searchMovie(this.search.value!, page, include_adult).pipe(tap(result => console.log('result', result)));
+    this.results$ = this.imdbSearch.searchMovie(this.search.value!, page, include_adult);
     this.movies$ = this.results$.pipe(
       mergeMap(result => {
         return result.results.map(movie => this.imdbMovie.getMovie(movie.id));
