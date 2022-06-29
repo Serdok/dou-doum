@@ -8,7 +8,7 @@ import {ImdbImageService} from "../../../services/imdb/imdb-image.service";
   styleUrls: ['./movie-card.component.sass']
 })
 export class MovieCardComponent implements OnInit {
-  @Input('movie') movie!: Movie;
+  @Input() movie!: Movie;
   error!: any;
 
   constructor(public imdbImage: ImdbImageService) {

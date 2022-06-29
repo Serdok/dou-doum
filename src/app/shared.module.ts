@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {BackDirective} from "./directives/back.directive";
 
 
-
 @NgModule({
   declarations: [
     BackDirective,
