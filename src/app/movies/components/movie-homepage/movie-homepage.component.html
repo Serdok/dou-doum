@@ -1,0 +1,25 @@
+<p-menubar [model]="menuItems">
+  <ng-template pTemplate="start">
+    <p><strong>Movies > </strong></p>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="field has-addons">
+      <div class="control has-icons-left">
+        <input type="text" placeholder="Search a movie..." class="input" [formControl]="search"/>
+        <span class="icon is-left">
+          <fa-icon [icon]="faFilm"></fa-icon>
+        </span>
+      </div>
+      <div class="control">
+        <button class="button" [disabled]="!search.valid" [routerLink]="['search']" [queryParams]="{query: this.search.value}">
+          <span class="icon">
+            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+          </span>
+          <span>Search</span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</p-menubar>
+
+<router-outlet></router-outlet>
