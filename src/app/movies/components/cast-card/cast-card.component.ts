@@ -8,7 +8,7 @@ import {ImdbImageService} from "../../../services/imdb/imdb-image.service";
   styleUrls: ['./cast-card.component.sass']
 })
 export class CastCardComponent implements OnInit {
-  @Input('cast') cast!: Cast;
+  @Input() cast!: Cast;
 
   error!: any;
 
